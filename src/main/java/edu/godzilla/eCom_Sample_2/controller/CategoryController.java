@@ -10,7 +10,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
-    CategoryService categoryService = new CategoryServiceImpl();
+    private CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
