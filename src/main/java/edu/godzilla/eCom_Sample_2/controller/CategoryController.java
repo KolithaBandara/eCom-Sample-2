@@ -2,7 +2,6 @@ package edu.godzilla.eCom_Sample_2.controller;
 
 import edu.godzilla.eCom_Sample_2.model.Category;
 import edu.godzilla.eCom_Sample_2.service.CategoryService;
-import edu.godzilla.eCom_Sample_2.service.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +28,8 @@ public class CategoryController {
 
     @DeleteMapping("/admin/categories/{categoryId}")
     public String deleteCategory(@PathVariable Long categoryId){
-        return "ID: " + categoryId + " Category Deleted!";
+        String status = categoryService.deleteCategory(categoryId);
+        return status;
     }
 
 }
