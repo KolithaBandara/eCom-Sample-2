@@ -11,11 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
-    private List<Category> allCategories = new ArrayList<>();
+    private List<Category> getAllCategories = new ArrayList<>();
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
-        return allCategories;
+        return getAllCategories;
     }
 
 }
