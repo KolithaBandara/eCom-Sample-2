@@ -3,6 +3,7 @@ package edu.godzilla.eCom_Sample_2.controller;
 import edu.godzilla.eCom_Sample_2.model.Category;
 import edu.godzilla.eCom_Sample_2.service.CategoryService;
 import edu.godzilla.eCom_Sample_2.service.CategoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,11 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
+    @Autowired
     private CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
