@@ -13,7 +13,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    Long id = 0L;
+    private Long id = 0L;
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
