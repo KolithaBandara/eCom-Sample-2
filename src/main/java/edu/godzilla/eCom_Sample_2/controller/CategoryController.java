@@ -13,6 +13,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+    Long id = 0L;
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
@@ -21,6 +22,8 @@ public class CategoryController {
 
     @PostMapping("/admin/category")
     public String createCategory(@RequestBody Category category){
+        ++id;
+        category.setId(id);
         return categoryService.createCategory(category);
     }
 
