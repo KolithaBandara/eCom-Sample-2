@@ -33,7 +33,8 @@ public class CategoryController {
     }
 
     @PutMapping("/admin/category/update/{categoryId}")
-    public String updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
+    public String updateCategory(@PathVariable Long categoryId,
+                                 @RequestBody Category category){
         return "Category updated!";
     }
 
