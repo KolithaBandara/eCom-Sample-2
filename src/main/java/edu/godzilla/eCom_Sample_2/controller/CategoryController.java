@@ -13,6 +13,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     private Long id = 0L;
+    
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
