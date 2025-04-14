@@ -15,7 +15,6 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    private Long id = 0L;
 
     @GetMapping("/public/categories")
     public List<Category> getAllCategories(){
@@ -24,8 +23,6 @@ public class CategoryController {
 
     @PostMapping("/admin/category")
     public ResponseEntity<String> createCategory(@RequestBody Category category){
-        ++id;
-        category.setId(id);
         ResponseStatusException exception = categoryService.createCategory(category);
         return new ResponseEntity<>(exception.getReason(), exception.getStatusCode());
     }
