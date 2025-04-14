@@ -30,4 +30,9 @@ public class CategoryServiceImpl implements CategoryService{
         allCategories.remove(category);
         return "Category ID : "+categoryId+", deleted successfully!";
     }
+
+    @Override
+    public String updateCategory(Long categoryId, Category category) {
+        return "Category updated!";
+    }
 }
