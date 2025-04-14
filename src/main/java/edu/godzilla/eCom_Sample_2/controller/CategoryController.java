@@ -35,7 +35,11 @@ public class CategoryController {
     @PutMapping("/admin/category/update/{categoryId}")
     public String updateCategory(@PathVariable Long categoryId,
                                  @RequestBody Category category){
-        return categoryService.updateCategory(categoryId, category);
+        try {
+            return categoryService.updateCategory(categoryId, category);
+        }catch (RuntimeException exception){
+            return exception.getMessage().toUpperCase();
+        }
     }
 
 }
