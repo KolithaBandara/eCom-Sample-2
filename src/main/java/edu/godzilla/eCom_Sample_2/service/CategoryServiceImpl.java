@@ -33,6 +33,10 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public String updateCategory(Long categoryId, Category category) {
-        return "Category updated!";
+        Category updateCategory = allCategories.stream()
+                .filter(category1 -> category1.getId().equals(categoryId))
+                .findFirst()
+                .orElseThrow();
+        return "User need to update the "+updateCategory.getName()+" Category...";
     }
 }
