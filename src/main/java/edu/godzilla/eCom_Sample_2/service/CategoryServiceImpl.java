@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService{
                 .orElseThrow(()-> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Category not found!"));
-        updateCategory.setId(categoryId);
+        updateCategory.setId(category.getId());
         updateCategory.setName(category.getName());
         return updateCategory;
     }
