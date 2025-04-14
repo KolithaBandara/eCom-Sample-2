@@ -26,12 +26,17 @@ public class CategoryServiceImpl implements CategoryService{
 
 
     @Override
-    public String deleteCategory(Long categoryId) {
+    public ResponseStatusException deleteCategory(Long categoryId) {
         Category category = allCategories.stream()
                 .filter(category1 -> category1.getId().equals(categoryId))
-                .findFirst().get();
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Category not found!"));
         allCategories.remove(category);
-        return "Category ID : "+categoryId+", deleted successfully!";
+        return new ResponseStatusException(
+                HttpStatus.OK,
+                "Category '"+ category.getName() +"', deleted!");
     }
 
     @Override
