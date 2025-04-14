@@ -3,7 +3,10 @@ package edu.godzilla.eCom_Sample_2.controller;
 import edu.godzilla.eCom_Sample_2.model.Category;
 import edu.godzilla.eCom_Sample_2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -33,12 +36,18 @@ public class CategoryController {
     }
 
     @PutMapping("/admin/category/update/{categoryId}")
-    public String updateCategory(@PathVariable Long categoryId,
-                                 @RequestBody Category category){
+    public ResponseEntity<String> updateCategory(@PathVariable Long categoryId,
+                                                  @RequestBody Category category){
         try {
-            return categoryService.updateCategory(categoryId, category);
-        }catch (RuntimeException exception){
-            return exception.getMessage().toUpperCase();
+            categoryService.updateCategory(categoryId, category);
+            ResponseStatusException responseStatusException = new ResponseStatusException(
+                    HttpStatus.OK,
+                    "Category updated!");
+            return new ResponseEntity<>(
+                    responseStatusException.getReason(),
+                    responseStatusException.getStatusCode());
+        }catch (ResponseStatusException exception){
+            return new ResponseEntity<>(exception.getReason(), exception.getStatusCode());
         }
     }
 
