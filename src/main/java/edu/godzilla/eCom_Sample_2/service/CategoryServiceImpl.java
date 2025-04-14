@@ -2,7 +2,6 @@ package edu.godzilla.eCom_Sample_2.service;
 
 import edu.godzilla.eCom_Sample_2.model.Category;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
