@@ -25,16 +25,25 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/category")
-    public String createCategory(@RequestBody Category category){
+    public ResponseEntity<String> createCategory(@RequestBody Category category){
         ++id;
         category.setId(id);
-        return categoryService.createCategory(category);
+        ResponseStatusException exception = categoryService.createCategory(category);
+        return new ResponseEntity<>(exception.getReason(), exception.getStatusCode());
     }
 
     @DeleteMapping("/admin/categories/{categoryId}")
-    public String deleteCategory(@PathVariable Long categoryId){
-        String status = categoryService.deleteCategory(categoryId);
-        return status;
+    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId){
+        try{
+            ResponseStatusException responseStatusException =
+                    categoryService.deleteCategory(categoryId);
+            return new ResponseEntity<>(
+                    responseStatusException.getReason(),
+                    responseStatusException.getStatusCode());
+
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(e.getReason(), e.getStatusCode());
+        }
     }
 
     @PutMapping("/admin/category/update/{categoryId}")
