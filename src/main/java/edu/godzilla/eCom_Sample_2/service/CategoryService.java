@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CategoryService {
     List<Category> getAllCategories();
-    String createCategory(@RequestBody Category category);
+    ResponseStatusException createCategory(@RequestBody Category category);
     ResponseStatusException deleteCategory(Long categoryId);
     Category updateCategory(@PathVariable Long categoryId,
                                            @RequestBody Category category);

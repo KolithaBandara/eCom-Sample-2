@@ -23,10 +23,11 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/category")
-    public String createCategory(@RequestBody Category category){
+    public ResponseEntity<String> createCategory(@RequestBody Category category){
         ++id;
         category.setId(id);
-        return categoryService.createCategory(category);
+        ResponseStatusException exception = categoryService.createCategory(category);
+        return new ResponseEntity<>(exception.getReason(), exception.getStatusCode());
     }
 
     @DeleteMapping("/admin/categories/{categoryId}")

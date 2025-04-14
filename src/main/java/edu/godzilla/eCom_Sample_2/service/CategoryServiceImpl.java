@@ -19,9 +19,15 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public String createCategory(Category category) {
+    public ResponseStatusException createCategory(Category category) {
+        if (category.getName().isEmpty())
+            return new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Checked the details again. Category name is empty!");
         allCategories.add(category);
-        return "Category Created Successfully!";
+        return new ResponseStatusException(
+                HttpStatus.CREATED,
+                "Category " +category.getName()+ ", created successfully!");
     }
 
 
