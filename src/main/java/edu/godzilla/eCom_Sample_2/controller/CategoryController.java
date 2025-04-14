@@ -2,6 +2,7 @@ package edu.godzilla.eCom_Sample_2.controller;
 
 import edu.godzilla.eCom_Sample_2.model.Category;
 import edu.godzilla.eCom_Sample_2.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class CategoryController {
     }
 
     @PutMapping("/admin/category/update/{categoryId}")
-    public ResponseEntity<String> updateCategory(@PathVariable Long categoryId,
+    public ResponseEntity<String> updateCategory(@Valid @PathVariable Long categoryId,
                                                   @RequestBody Category category){
         try {
             categoryService.updateCategory(categoryId, category);
