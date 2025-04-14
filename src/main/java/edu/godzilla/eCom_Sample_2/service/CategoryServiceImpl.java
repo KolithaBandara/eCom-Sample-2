@@ -1,6 +1,10 @@
 package edu.godzilla.eCom_Sample_2.service;
 
 import edu.godzilla.eCom_Sample_2.model.Category;
+import edu.godzilla.eCom_Sample_2.repository.CategoryRepository;
+import org.apache.logging.log4j.ThreadContext;
+import org.springframework.beans.MutablePropertyValues;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,11 +14,14 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-    private List<Category> allCategories = new ArrayList<>();
+//    private List<Category> allCategories = new ArrayList<>();
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<Category> getAllCategories() {
-        return allCategories;
+        return categoryRepository.findAll();
     }
 
     @Override
@@ -23,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService{
             return new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Checked the details again. Category name is empty!");
-        allCategories.add(category);
+        categoryRepository.save(category);
         return new ResponseStatusException(
                 HttpStatus.CREATED,
                 "Category " +category.getName()+ ", created successfully!");
@@ -32,13 +39,14 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public ResponseStatusException deleteCategory(Long categoryId) {
+        List<Category> allCategories = categoryRepository.findAll();
         Category category = allCategories.stream()
                 .filter(category1 -> category1.getId().equals(categoryId))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Category not found!"));
-        allCategories.remove(category);
+        categoryRepository.delete(category);
         return new ResponseStatusException(
                 HttpStatus.OK,
                 "Category '"+ category.getName() +"', deleted!");
@@ -46,14 +54,15 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Category updateCategory(Long categoryId, Category category) {
+        List<Category> allCategories = categoryRepository.findAll();
         Category updateCategory = allCategories.stream()
                 .filter(category1 -> category1.getId().equals(categoryId))
                 .findFirst()
                 .orElseThrow(()-> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Category not found!"));
-        updateCategory.setId(categoryId);
+        updateCategory.setId(category.getId());
         updateCategory.setName(category.getName());
-        return updateCategory;
+        return categoryRepository.save(updateCategory);
     }
 }
